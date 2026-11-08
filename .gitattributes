@@ -1,0 +1,2 @@
+# Unified patch context uses one space for an unchanged empty line.
+tracker/training/scripts/compat/*.patch whitespace=-blank-at-eol

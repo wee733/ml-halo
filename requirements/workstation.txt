@@ -1,0 +1,29 @@
+# Use the existing CUDA-enabled PyTorch installation.
+transformers==5.10.4
+av>=10
+pyarrow>=12
+opencv-python-headless
+pyzmq>=25
+qwen-vl-utils
+pyyaml>=6
+imageio[ffmpeg]
+trimesh
+shapely
+scipy
+pandas
+boto3
+tensorboard
+toml
+rsl-rl-lib>=5.5.1,<5.6
+onnx
+onnxruntime
+# Headless Kimodo motion generation and its local LLM2Vec encoder.
+hydra-core>=1.3
+omegaconf>=2.3
+einops>=0.7
+safetensors>=0.4
+huggingface-hub>=1
+pydantic>=2
+tqdm>=4
+packaging>=21
+psutil>=5

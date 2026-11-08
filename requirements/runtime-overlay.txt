@@ -1,0 +1,3 @@
+# Project-local wheels, selected through scripts/env.sh.
+mujoco==3.2.5
+flatdict==4.0.1

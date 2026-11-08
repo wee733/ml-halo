@@ -80,7 +80,10 @@ def _swap_tracked_views_to_physics(sensor) -> None:
 
     Updates the instance ``_mesh_views`` and the shared ``MultiMeshRayCaster.mesh_views`` / ``mesh_offsets`` class
     variables, which sibling sensors reuse."""
-    import omni.physics.tensors.impl.api as physx
+    try:
+        import omni.physics.tensors.api as physx
+    except ModuleNotFoundError:
+        import omni.physics.tensors.impl.api as physx
 
     swapped = []
     for i, target_cfg in enumerate(sensor._raycast_targets_cfg):

@@ -1,7 +1,30 @@
+---
+tags: [robotics, humanoid, HALO, G1, simulation, RTX-5090]
+---
+
 # HALO: Perceptive Humanoid Motion from Simulation
 
 [![Project Page](https://img.shields.io/badge/Project-Page-green)](https://apple-aiml-research.github.io/ml-halo/)
 [![arXiv](https://img.shields.io/badge/arXiv-2611.06908-b31b1b.svg)](https://arxiv.org/abs/2611.06908)
+
+![HALO author demonstrations in real homes](docs/assets/teaser.webp)
+
+*上图为作者项目展示。此 fork 的本机配置与验证范围见下文。*
+
+## 5090 工作站配置
+
+本 fork 使用 RTX 5090 完成数据处理、训练和仿真评估，G1 + Thor 作为后续机载目标。
+已有 CUDA Python 环境通过 `HALO_PYTHON` 选择，配置位于 `configs/`，入口位于 `scripts/`，
+数据、依赖 overlay、模型缓存和运行产物位于 Git 忽略的 `.local/`。
+
+- [本机安装、验证与训练入口](WORKSTATION.md)
+- [本地坐椅数据生成](scripts/datagen/README.md)
+- [G1 + Thor 目标配置](scripts/thor/README.md)
+
+上游尚未提供训练完成的 HALO generator / tracker 权重和训练数据。Qwen 基础模型已可用于生成器计算验证，
+具体任务策略需完成数据生成与训练，或取得作者对应权重。
+
+## Upstream project
 
 <!-- TODO(release): authors. -->
 
@@ -10,8 +33,6 @@ deployment from the HALO paper.
 
 <!-- TODO(release): confirm scope vs. the paper. No tracker weights ship; the
      proprio and depth tracker students are trained with tracker/training. -->
-
-![HALO teaser: a Unitree G1 crawling under tables, sitting on a sofa, walking through rooms and pushing boxes in real homes](docs/assets/teaser.webp)
 
 ## Repository layout
 

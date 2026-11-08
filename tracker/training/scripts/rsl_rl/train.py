@@ -178,7 +178,8 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     is_rank_zero = (not args_cli.distributed) or (int(os.environ.get("RANK", "0")) == 0)
 
     # specify directory for logging experiments
-    log_root_path = os.path.abspath(os.path.join("logs", "rsl_rl", agent_cfg.experiment_name))
+    log_base = os.path.join(os.environ["HALO_RUNS_ROOT"], "tracker") if "HALO_RUNS_ROOT" in os.environ else "."
+    log_root_path = os.path.abspath(os.path.join(log_base, "logs", "rsl_rl", agent_cfg.experiment_name))
     # specify directory for logging runs: {time-stamp}_{run_name}
     log_dir = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     if agent_cfg.run_name:

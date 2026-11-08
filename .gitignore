@@ -34,3 +34,16 @@ eval_closedloop_sim_multi_output/
 
 # MuJoCo error log (written to the working directory)
 **/MUJOCO_LOG.TXT
+
+# Machine state, datasets, models and experiment output for this fork.
+/.local/
+/.venv/
+/.upstream/
+/.codegraph/
+/local_reproduction/
+/REPRODUCTION.md
+**/build/
+**/logs/
+**/checkpoints*/
+**/wandb/
+*.plan

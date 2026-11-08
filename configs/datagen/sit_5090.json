@@ -1,0 +1,14 @@
+{
+  "episodes_per_shard": 4,
+  "scene_indices": [0],
+  "seed": 0,
+  "motion_batch": 2,
+  "motion_steps": 200,
+  "motion_check_workers": 1,
+  "motion_retries": 5,
+  "scene_workers": 1,
+  "scene_ready_queue": 1,
+  "scene_memory_reserve_gb": 0,
+  "scene_disk_reserve_gb": 40,
+  "target_fps": 30
+}

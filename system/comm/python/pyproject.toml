@@ -14,14 +14,11 @@ description = "ROS2-style middleware over ZMQ (TCP) with protobuf messages, for 
 requires-python = ">=3.10"
 dependencies = [
     "pyzmq>=25",
-    # The committed *_pb2.py gencode is stamped for runtime 5.29.x — it must be
-    # generated with protoc RELEASE 29.x (`make protoc29 && make protos`). At
-    # import time protobuf enforces runtime >= gencode AND the same major, so we
-    # cap the major to <6: a newer protoc (e.g. brew's 35 → gencode 7.x) yields
-    # *_pb2.py that this 5.29 runtime REFUSES to load (VersionError). See
-    # system/comm/Makefile for the codegen/version-pin notes; CI runs
-    # `make check-protos` (no-diff gate).
-    "protobuf>=5.29,<6",
+    # Keep committed gencode at protoc release 29.x (`make protoc29 && make protos`).
+    # Newer Python runtimes can load this gencode. The workstation also uses
+    # TensorBoard gencode 6.31.1, so allow its compatible newer runtime.
+    # scripts/check_workstation.py imports TensorBoard and all HALO message modules.
+    "protobuf>=5.29,<8",
 ]
 
 # `halo_comm` CLI: `halo_comm echo g1/state`, `halo_comm list --probe`, ... (see halo_comm/cli.py).

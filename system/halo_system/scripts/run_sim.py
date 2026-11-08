@@ -71,7 +71,18 @@ DEFAULT_OBJ_FILE = "/tmp/halo_objects.txt"      # the viewer reads the same defa
 
 
 def default_tracker_bin() -> str:
-    """First existing C++ tracker build (mac, then linux), else the mac path as a placeholder."""
+    """Resolve an explicit tracker, the local workstation build, or a legacy build."""
+    override = os.environ.get("HALO_TRACKER_BIN")
+    if override:
+        candidate = Path(os.path.expandvars(os.path.expanduser(override)))
+        if not candidate.is_absolute():
+            candidate = REPO_ROOT / candidate
+        if not candidate.is_file() or not os.access(candidate, os.X_OK):
+            raise SystemExit(f"HALO_TRACKER_BIN is not an executable file: {candidate}")
+        return str(candidate)
+    local = REPO_ROOT / ".local/build/sim/motiontrack_mujoco_zmq"
+    if local.is_file() and os.access(local, os.X_OK):
+        return str(local)
     for plat in ("mac", "linux"):
         cand = REPO_ROOT / "system" / "build" / plat / "motiontrack_mujoco_zmq"
         if cand.exists():

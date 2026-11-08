@@ -1,0 +1,84 @@
+{
+  "name": "g1-thor",
+  "schema_version": 1,
+  "roles": {
+    "workstation": "RTX 5090 training, optimization, simulation evaluation and ONNX export",
+    "robot_compute": "Jetson Thor inference, perception and Unitree G1 control"
+  },
+  "robot": {
+    "family": "Unitree G1",
+    "controlled_joints": 29,
+    "tracker_config": "tracker/deploy_cpp/configs/g1_v2_depth.yaml",
+    "reference_model": "assets/robots/g1/urdf/g1_29dof_macmini_sysid.urdf",
+    "deployment_joint_order_source": "tracker/deploy_cpp/configs/g1_v2_depth.yaml",
+    "measured_payload_mass_kg": null,
+    "measured_payload_com_m": null,
+    "measured_command_latency_ms": null
+  },
+  "compute": {
+    "family": "Jetson Thor",
+    "architecture": "aarch64",
+    "upstream_cmake_preset": "release-rt-thor",
+    "cuda_arch": "110",
+    "reference_software": "JetPack 7.x, CUDA 13, TensorRT 10",
+    "tracker_rate_hz": 50,
+    "generator_measured_rate_hz": null,
+    "generator_backend": "torch_cuda",
+    "orchestrator": "single_task_first; local multi_task MLX backend requires CUDA adaptation",
+    "device_measurement_status": "pending_device_access"
+  },
+  "network": {
+    "robot_interface": null,
+    "registry_address": null
+  },
+  "sensors": {
+    "reference_rgb": {
+      "model": "Luxonis OAK-1W",
+      "adapter": "upstream DepthAI capture",
+      "serial": null,
+      "intrinsics": null,
+      "transform_to_robot": null
+    },
+    "reference_depth": {
+      "model": "Intel RealSense D435i",
+      "config": "tracker/deploy_cpp/configs/depth_d435i.yaml",
+      "pipeline": "stereo IR -> LiteAnyStereo -> metric depth",
+      "serial": null,
+      "intrinsics": null,
+      "transform_to_robot": null,
+      "policy_shape": [1, 1, 48, 84],
+      "policy_clip_m": [0.2, 2.5]
+    },
+    "available_options": [
+      {
+        "model": "Intel RealSense D455",
+        "possible_role": "RGB/depth capture candidate",
+        "integration_status": "requires stream-profile, intrinsics, extrinsics and observation validation"
+      },
+      {
+        "model": "Orbbec; exact model pending",
+        "possible_role": "RGB/depth capture candidate",
+        "integration_status": "requires SDK capture adapter, calibration and observation validation"
+      },
+      {
+        "model": "Livox MID-360",
+        "possible_role": "mapping, localization or independent obstacle sensing",
+        "integration_status": "extension; upstream HALO policy has no point-cloud input"
+      },
+      {
+        "model": "Hesai XT32",
+        "possible_role": "mapping, localization or independent obstacle sensing",
+        "integration_status": "extension; upstream HALO policy has no point-cloud input"
+      }
+    ]
+  },
+  "artifacts": {
+    "generator_checkpoint": ".local/deploy/g1-thor/generator.pt",
+    "generator_config": ".local/deploy/g1-thor/generator.yaml",
+    "tracker_onnx": ".local/deploy/g1-thor/policy.onnx",
+    "depth_onnx": ".local/deploy/g1-thor/las_448x256.onnx",
+    "tracker_plan": ".local/deploy/g1-thor/policy_thor.plan",
+    "depth_plan": ".local/deploy/g1-thor/las_448x256_thor.plan"
+  },
+  "build_dir": ".local/build/thor"
+}

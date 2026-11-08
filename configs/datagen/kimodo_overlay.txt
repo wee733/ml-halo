@@ -1,0 +1,4 @@
+# HALO's pinned motion generator, reusing the workstation CUDA/Python stack.
+kimodo @ git+https://github.com/nv-tlabs/kimodo.git@58e781898b3d7e328a676a75d3e338c45dce3ad9
+peft==0.18.1
+accelerate==1.12.0
